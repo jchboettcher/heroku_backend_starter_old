@@ -7,7 +7,8 @@ const allUsers = async () => {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.warn(error)
-    throw new Error('failed to get users')
+    // throw new Error('failed to get users')
+    throw error
   }
 }
 const resolver = {

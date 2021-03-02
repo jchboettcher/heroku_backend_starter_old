@@ -6,7 +6,8 @@ const userByName = async (obj, { displayName }, context) => {
     return user
   } catch (error) {
     console.warn(error)
-    throw new Error('failed to get user by name')
+    // throw new Error('failed to get user by name')
+    throw error
   }
 }
 
