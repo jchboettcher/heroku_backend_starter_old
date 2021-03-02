@@ -12,10 +12,11 @@ exports.up = async knex => createTableIfNotExists(knex, 'users', table => {
     .unique()
     .notNullable()
 
-  table.integer('score').notNullable().defaultTo(0)
+  table.integer('score').notNullable().defaultTo(1)
+  table.integer('rank').notNullable()
 
-  table.timestamp('createdAt').defaultTo(knex.fn.now())
-  table.timestamp('updatedAt').defaultTo(knex.fn.now())
+  table.string('createdAt').notNullable()
+  table.string('updatedAt').notNullable()
 })
 
 exports.down = async knex => knex.schema.dropTableIfExists('users')

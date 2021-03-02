@@ -5,7 +5,8 @@ const userByName = async (obj, { displayName }, context) => {
     const user = await User.query().findOne('displayName', displayName)
     return user
   } catch (error) {
-    return null
+    console.warn(error)
+    throw new Error('failed to get user by name')
   }
 }
 

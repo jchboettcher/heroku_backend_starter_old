@@ -3,7 +3,7 @@ const casual = require('casual')
 casual.define('user', () => ({
   id: casual.uuid,
   displayName: casual.name,
-  score: casual.integer(0, 10),
+  rank: casual.integer(0, 10),
 }))
 
 const usersData = []
