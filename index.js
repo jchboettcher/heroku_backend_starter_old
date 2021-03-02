@@ -2,15 +2,15 @@ const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const schema = require("./src/schema");
 const resolvers = require("./src/resolvers");
-const startDatabase = require("./src/database");
+// const startDatabase = require("./src/database");
 const expressPlayground = require("graphql-playground-middleware-express").default;
 
 // Create a context for holding contextual data 
-const context = async () => {
-  const db = await startDatabase();
+// const context = async () => {
+//   const db = await startDatabase();
 
-  return { db };
-};
+//   return { db };
+// };
 
 const app = express();
 
@@ -18,8 +18,8 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema,
-    rootValue: resolvers,
-    context
+    rootValue: resolvers//,
+    // context
   })
 );
 
