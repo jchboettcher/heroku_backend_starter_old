@@ -1,33 +1,49 @@
-const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-const schema = require("./src/schema");
-const resolvers = require("./src/resolvers");
-// const startDatabase = require("./src/database");
-const expressPlayground = require("graphql-playground-middleware-express").default;
+const express = require('express');
+const bodyParser = require('body-parser');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
 
-// Create a context for holding contextual data 
-// const context = async () => {
-//   const db = await startDatabase();
+// Some fake data
+const books = [
+  {
+    title: "Harry Potter and the Sorcerer's stone",
+    author: 'J.K. Rowling',
+  },
+  {
+    title: 'Jurassic Park',
+    author: 'Michael Crichton',
+  },
+];
 
-//   return { db };
-// };
+// The GraphQL schema in string form
+const typeDefs = `
+  type Query { books: [Book] }
+  type Book { title: String, author: String }
+`;
 
+// The resolvers
+const resolvers = {
+  Query: { books: () => books },
+};
+
+// Put together a schema
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
+
+// Initialize the app
 const app = express();
 
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    schema,
-    rootValue: resolvers//,
-    // context
-  })
-);
+// The GraphQL endpoint
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
-//Graphql Playground route
-app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
+// GraphiQL, a visual editor for queries
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 const port = process.env.PORT || "4000";
 
-app.listen(port);
-
-console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+// Start the server
+app.listen(port, () => {
+  console.log('Go to http://localhost:4000/graphiql to run queries!');
+});
