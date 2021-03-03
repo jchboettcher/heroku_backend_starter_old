@@ -9,7 +9,6 @@ const resolvers = require('./src/graphql/resolvers')
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  cors: 'https://hph-leaderboard.herokuapp.com/',
 });
 
 // The `listen` method launches a web server.
