@@ -10,7 +10,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   cors: {
-    origin: 'https://hph-leaderboard.herokuapp.com',
+    origin: true,
     credentials: true,
   }
 });
