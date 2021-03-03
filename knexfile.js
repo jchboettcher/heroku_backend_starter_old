@@ -10,10 +10,7 @@ const config = require('./src/config')
 module.exports = {
   client: 'pg',
   connection: {
-    host: config.db.host,
-    user: config.db.user,
-    password: config.db.password,
-    database: config.db.database,
+    connectionString: process.env.DATABASE_URL,
     ssl: true,
   },
   migrations: {

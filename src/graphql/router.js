@@ -1,17 +1,18 @@
-const { ApolloServer, makeExecutableSchema } = require('apollo-server-express')
+const { ApolloServer } = require('apollo-server-express')
 const resolvers = require('./resolvers')
 const typeDefs = require('./typeDefs')
 const context = require('../lib/context')
 const formatError = require('../lib/formatError')
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-})
+// const schema = makeExecutableSchema({
+//   typeDefs,
+//   resolvers,
+// })
 
 const initializeGraphqlRouter = app => {
   const server = new ApolloServer({
-    schema,
+    typeDefs,
+    resolvers,
     context,
     formatError,
     introspection: process.env.NODE_ENV === 'development',
